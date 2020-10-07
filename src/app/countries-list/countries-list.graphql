@@ -1,0 +1,10 @@
+query countriesList {
+  countries {
+    code
+    name
+    currency
+    continent {
+      name
+    }
+  }
+}
