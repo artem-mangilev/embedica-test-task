@@ -1,5 +1,7 @@
-<h1>Countries list</h1>
+<div class='countries-list'>
+  <h1 class="countries-list__title">Countries list</h1>
 
-<div *ngFor="let item of items | async">
-  <app-list-item [item]="item"></app-list-item>
+  <div class="countries-list__country" *ngFor="let item of items | async">
+    <app-list-item [item]="item"></app-list-item>
+  </div>
 </div>
