@@ -10,9 +10,10 @@ import { Item } from '../list-item/list-item.component';
 })
 export class CountriesListComponent implements OnInit {
   continents;
+  currencies;
   filteredItems: Item[];
   private items: Item[];
-  private checkboxValues: string[] = [];
+  checkboxValues: string[] = [];
 
   constructor(private countriesListService: CountriesListGQL) {}
 
@@ -24,6 +25,12 @@ export class CountriesListComponent implements OnInit {
         this.continents = countries
           .map((country) => country.continent.name)
           .filter((name, index, thisArr) => thisArr.indexOf(name) === index);
+
+        this.currencies = countries
+          .map((country) => country.currency)
+          .filter(
+            (currency, index, thisArr) => thisArr.indexOf(currency) === index
+          );
 
         this.items = countries.map((country) => ({
           name: country.name,
@@ -58,12 +65,18 @@ export class CountriesListComponent implements OnInit {
     }
 
     if (!this.checkboxValues.length) {
-      this.filteredItems = [...this.items]
-      return
+      this.filteredItems = [...this.items];
+      return;
     }
 
     this.filteredItems = this.items.filter((item) =>
       this.checkboxValues.includes(item.properties[0].value)
+    );
+  }
+
+  onRadioSelected(value: string) {
+    this.filteredItems = this.items.filter(
+      (item) => item.properties[1].value === value
     );
   }
 }
