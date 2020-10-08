@@ -1,9 +1,4 @@
 import { Component } from '@angular/core';
-import {
-  CountriesListGQL,
-  CountryDetailsGQL,
-} from './services/countriesGraphql.service';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -12,10 +7,4 @@ import { map } from 'rxjs/operators';
 })
 export class AppComponent {
   title = 'embedica-test-task';
-
-  constructor(private countryDetails: CountryDetailsGQL) {
-    countryDetails.fetch({ code: 'US' }).subscribe((res) => {
-      console.log(res.data.country)
-    })
-  }
 }

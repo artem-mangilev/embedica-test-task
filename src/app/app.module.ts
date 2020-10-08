@@ -3,8 +3,9 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CountriesListComponent } from './countries-list/countries-list.component';
-import { CountryDetailsComponent } from './country-details/country-details.component';
+import { CountriesListComponent } from './components/countries-list/countries-list.component';
+import { CountryDetailsComponent } from './components/country-details/country-details.component';
+import { ListItemComponent } from './components/list-item/list-item.component';
 import { GraphQLModule } from './graphql.module';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -12,15 +13,11 @@ import { HttpClientModule } from '@angular/common/http';
   declarations: [
     AppComponent,
     CountriesListComponent,
-    CountryDetailsComponent
+    CountryDetailsComponent,
+    ListItemComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    GraphQLModule,
-    HttpClientModule
-  ],
+  imports: [BrowserModule, AppRoutingModule, GraphQLModule, HttpClientModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
