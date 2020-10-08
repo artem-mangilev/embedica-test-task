@@ -1,9 +1,18 @@
-.countries-list {
+.countries {
+  display: grid;
+  grid-template-columns: auto 393px;
+
   &__title {
     margin-bottom: 64px;
   }
 
   &__country {
     margin-bottom: 40px;
+  }
+}
+
+.checkbox-dropdown {
+  &__label {
+    display: block;
   }
 }

@@ -1,7 +1,32 @@
-<div class='countries-list'>
-  <h1 class="countries-list__title">Countries list</h1>
+<div class="countries">
+  <div class="countries__list">
+    <h1 class="countries__title">Countries list</h1>
 
-  <div class="countries-list__country" *ngFor="let item of items | async">
-    <app-list-item [item]="item"></app-list-item>
+    <div class="countries__country" *ngFor="let item of filteredItems">
+      <app-list-item [item]="item"></app-list-item>
+    </div>
+  </div>
+
+  <div class="filters">
+    <input #input (keydown)="onKey(input.value)" />
+
+    <div class="checkbox-dropdown">
+      <input readonly />
+
+      <div class="checkbox-dropdown__dropdown">
+        <label
+          class="checkbox-dropdown__label"
+          *ngFor="let continent of continents"
+        >
+          <input
+            type="checkbox"
+            [value]="continent"
+            #checkbox
+            (change)="onCheckboxClicked(checkbox.checked, checkbox.value)"
+          />
+          {{ continent }}
+        </label>
+      </div>
+    </div>
   </div>
 </div>
