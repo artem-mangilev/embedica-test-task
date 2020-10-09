@@ -1,13 +1,8 @@
 import { Component, Input } from '@angular/core';
 
-export interface ItemProperty {
-  key: string,
-  value: string
-}
-
 export interface Item {
-  name: string,
-  properties: ItemProperty[]
+  name: string;
+  properties: Map<string, string>;
 }
 
 @Component({
@@ -16,7 +11,7 @@ export interface Item {
   styleUrls: ['./list-item.component.scss'],
 })
 export class ListItemComponent {
-  @Input() item: Item
+  @Input() item: Item;
 
   constructor() {}
 }

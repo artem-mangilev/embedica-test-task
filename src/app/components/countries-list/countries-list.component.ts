@@ -27,26 +27,18 @@ export class CountriesListComponent implements OnInit {
       .subscribe((countries) => {
         this.continents = countries
           .map((country) => country.continent.name)
-          .filter((name, index, thisArr) => thisArr.indexOf(name) === index);
+          .filter(this.isElementUnique, this);
 
         this.currencies = countries
           .map((country) => country.currency)
-          .filter(
-            (currency, index, thisArr) => thisArr.indexOf(currency) === index
-          );
+          .filter(this.isElementUnique, this);
 
         this.items = countries.map((country) => ({
           name: country.name,
-          properties: [
-            {
-              key: 'Continent',
-              value: country.continent.name,
-            },
-            {
-              key: 'Currency',
-              value: country.currency,
-            },
-          ],
+          properties: new Map([
+            ['Continent', country.continent.name],
+            ['Currency', country.currency],
+          ]),
         }));
 
         this.filteredItems = [...this.items];
@@ -55,7 +47,7 @@ export class CountriesListComponent implements OnInit {
 
   onKey(value: string) {
     this.inputValue = value;
-    
+
     this.filteredItems = this.getFilteredItems();
   }
 
@@ -98,7 +90,7 @@ export class CountriesListComponent implements OnInit {
       return true;
     }
 
-    return this.checkboxValues.includes(item.properties[0].value);
+    return this.checkboxValues.includes(item.properties.get('Continent'));
   }
 
   private radioFilterCondition(item: Item): boolean {
@@ -107,6 +99,14 @@ export class CountriesListComponent implements OnInit {
       return true;
     }
 
-    return item.properties[1].value === this.radioValue;
+    return item.properties.get('Currency') === this.radioValue;
+  }
+
+  private isElementUnique(
+    elememnt: string,
+    index: number,
+    array: string[]
+  ): boolean {
+    return array.indexOf(elememnt) === index;
   }
 }
