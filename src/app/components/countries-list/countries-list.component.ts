@@ -13,7 +13,10 @@ export class CountriesListComponent implements OnInit {
   currencies;
   filteredItems: Item[];
   private items: Item[];
+
+  private inputValue: string = '';
   checkboxValues: string[] = [];
+  private radioValue: string = '';
 
   constructor(private countriesListService: CountriesListGQL) {}
 
@@ -51,9 +54,9 @@ export class CountriesListComponent implements OnInit {
   }
 
   onKey(value: string) {
-    this.filteredItems = this.items.filter((item) =>
-      item.name.toLowerCase().includes(value.toLowerCase())
-    );
+    this.inputValue = value;
+    
+    this.filteredItems = this.getFilteredItems();
   }
 
   onCheckboxClicked(checked: boolean, value: string) {
@@ -64,19 +67,46 @@ export class CountriesListComponent implements OnInit {
       this.checkboxValues.splice(index, 1);
     }
 
-    if (!this.checkboxValues.length) {
-      this.filteredItems = [...this.items];
-      return;
-    }
-
-    this.filteredItems = this.items.filter((item) =>
-      this.checkboxValues.includes(item.properties[0].value)
-    );
+    this.filteredItems = this.getFilteredItems();
   }
 
   onRadioSelected(value: string) {
-    this.filteredItems = this.items.filter(
-      (item) => item.properties[1].value === value
-    );
+    this.radioValue = value;
+
+    this.filteredItems = this.getFilteredItems();
+  }
+
+  private getFilteredItems() {
+    return this.items
+      .filter(this.inputFilterCondition, this)
+      .filter(this.checkboxFilterCondition, this)
+      .filter(this.radioFilterCondition, this);
+  }
+
+  private inputFilterCondition(item: Item): boolean {
+    // if input is empty, filter should not apply
+    if (!this.inputValue.trim().length) {
+      return true;
+    }
+
+    return item.name.toLowerCase().includes(this.inputValue.toLowerCase());
+  }
+
+  private checkboxFilterCondition(item: Item): boolean {
+    // if there are no checked checkboxes, filter should not apply
+    if (!this.checkboxValues.length) {
+      return true;
+    }
+
+    return this.checkboxValues.includes(item.properties[0].value);
+  }
+
+  private radioFilterCondition(item: Item): boolean {
+    // if radio button is not selected, filter should not apply
+    if (!this.radioValue.length) {
+      return true;
+    }
+
+    return item.properties[1].value === this.radioValue;
   }
 }
