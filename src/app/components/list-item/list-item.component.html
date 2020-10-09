@@ -2,9 +2,9 @@
   <h3 class="item__name">{{ item.name }}</h3>
 
   <div class="item__properties">
-    <div class="item__property" *ngFor="let key of item.properties.keys()">
-      <div class="item__key">{{ key }}</div>
-      <div class="item__value">{{ item.properties.get(key) }}</div>
+    <div class="item__property" *ngFor="let prop of item.properties | keyvalue">
+      <div class="item__key">{{ prop.key }}</div>
+      <div class="item__value">{{ prop.value }}</div>
     </div>
   </div>
 </div>
