@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Item } from '../list-item/list-item.component';
-import { CountriesFilterService } from 'src/app/services/countries-filter.service';
+import {
+  CountriesFilterService,
+  CountryDetails,
+} from 'src/app/services/countries-filter.service';
 
 @Component({
   selector: 'app-countries-list',
@@ -25,13 +28,7 @@ export class CountriesListComponent implements OnInit {
         .map((country) => country.currency)
         .filter(this.isElementUnique, this);
 
-      this.filteredItems = countries.map((country) => ({
-        name: country.name,
-        properties: new Map([
-          ['Continent', country.continent],
-          ['Currency', country.currency],
-        ]),
-      }));
+      this.filteredItems = this.countriesToItems(countries);
     });
   }
 
@@ -39,13 +36,7 @@ export class CountriesListComponent implements OnInit {
     this.countriesFilter.setCountryNameFilter(value);
 
     this.countriesFilter.getCountries().subscribe((countries) => {
-      this.filteredItems = countries.map((country) => ({
-        name: country.name,
-        properties: new Map([
-          ['Continent', country.continent],
-          ['Currency', country.currency],
-        ]),
-      }));
+      this.filteredItems = this.countriesToItems(countries);
     });
   }
 
@@ -57,13 +48,7 @@ export class CountriesListComponent implements OnInit {
     }
 
     this.countriesFilter.getCountries().subscribe((countries) => {
-      this.filteredItems = countries.map((country) => ({
-        name: country.name,
-        properties: new Map([
-          ['Continent', country.continent],
-          ['Currency', country.currency],
-        ]),
-      }));
+      this.filteredItems = this.countriesToItems(countries);
     });
   }
 
@@ -71,13 +56,7 @@ export class CountriesListComponent implements OnInit {
     this.countriesFilter.setCurrenctyFilter(value);
 
     this.countriesFilter.getCountries().subscribe((countries) => {
-      this.filteredItems = countries.map((country) => ({
-        name: country.name,
-        properties: new Map([
-          ['Continent', country.continent],
-          ['Currency', country.currency],
-        ]),
-      }));
+      this.filteredItems = this.countriesToItems(countries);
     });
   }
 
@@ -87,5 +66,15 @@ export class CountriesListComponent implements OnInit {
     array: string[]
   ): boolean {
     return array.indexOf(elememnt) === index;
+  }
+
+  private countriesToItems(countries: CountryDetails[]) {
+    return countries.map((country) => ({
+      name: country.name,
+      properties: new Map([
+        ['Continent', country.continent],
+        ['Currency', country.currency],
+      ]),
+    }));
   }
 }

@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { map, share } from 'rxjs/operators';
 import { CountriesListGQL } from './countriesGraphql.service';
 
-interface Country {
+export interface CountryDetails {
   name: string;
   continent: string;
   currency: string;
@@ -17,10 +17,11 @@ export class CountriesFilterService {
   private continentsFilter: string[] = [];
   private currencyFilter: string = '';
 
-  private countries: Observable<Country[]>;
+  private countries: Observable<CountryDetails[]>;
 
   constructor(countriesListService: CountriesListGQL) {
     this.countries = countriesListService.fetch().pipe(
+      // ? the operations below do the same at each subscribe call, the result should be cached somehow
       map((response) => response.data.countries),
       map((countries) =>
         countries.map((country) => {
@@ -35,7 +36,7 @@ export class CountriesFilterService {
     );
   }
 
-  getCountries(): Observable<Country[]> {
+  getCountries(): Observable<CountryDetails[]> {
     return this.countries.pipe(
       map((countries) =>
         countries
@@ -58,14 +59,14 @@ export class CountriesFilterService {
     const index = this.continentsFilter.indexOf(continent);
     this.continentsFilter.splice(index, 1);
 
-    return this.continentsFilter.length
+    return this.continentsFilter.length;
   }
 
   setCurrenctyFilter(currency: string) {
     this.currencyFilter = currency;
   }
 
-  private isNameValid(country: Country): boolean {
+  private isNameValid(country: CountryDetails): boolean {
     if (!this.countryNameFilter.trim().length) {
       return true;
     }
@@ -75,7 +76,7 @@ export class CountriesFilterService {
       .includes(this.countryNameFilter.toLowerCase());
   }
 
-  private isContinentValid(country: Country): boolean {
+  private isContinentValid(country: CountryDetails): boolean {
     if (!this.continentsFilter.length) {
       return true;
     }
@@ -83,7 +84,7 @@ export class CountriesFilterService {
     return this.continentsFilter.includes(country.continent);
   }
 
-  private isCurrencyValid(country: Country): boolean {
+  private isCurrencyValid(country: CountryDetails): boolean {
     if (!this.currencyFilter.length) {
       return true;
     }
