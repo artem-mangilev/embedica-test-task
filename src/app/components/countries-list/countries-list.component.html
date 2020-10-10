@@ -11,7 +11,7 @@
     <input #input (keyup)="onKey(input.value)" />
 
     <div class="checkbox-dropdown">
-      <input readonly [value]="'Выбраны ' + checkboxValues.length" />
+      <input readonly [value]="'Выбраны ' + checkboxes" />
 
       <div class="checkbox-dropdown__dropdown">
         <label
