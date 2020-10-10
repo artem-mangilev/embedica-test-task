@@ -1,0 +1,40 @@
+.field {
+  &:focus-within {
+    .field__input {
+      outline: none;
+      border-color: rgba(52, 124, 255, 1);
+
+      &::placeholder {
+        opacity: 0;
+      }
+    }
+
+    .field__label {
+      opacity: 1;
+    }
+  }
+
+  &__input {
+    width: 100%;
+    padding: 0 0 7px;
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+    caret-color: rgba(52, 124, 255, 1);
+    font-family: "Roboto", sans-serif;
+    font-size: 16px;
+
+    &::placeholder {
+      color: rgba(0, 0, 0, 0.4);
+    }
+  }
+
+  &__label {
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.4);
+    opacity: 0;
+
+    &_shown {
+      opacity: 1;
+    }
+  }
+}

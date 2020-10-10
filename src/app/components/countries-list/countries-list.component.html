@@ -8,7 +8,11 @@
   </div>
 
   <div class="filters">
-    <app-input (changeValueEvent)="onInputValueChanged($event)"></app-input>
+    <app-input
+      placeholder="Название"
+      value="test"
+      (changeValueEvent)="onInputValueChanged($event)"
+    ></app-input>
 
     <div class="checkbox-dropdown">
       <input readonly [value]="'Выбраны ' + checkboxes" />
