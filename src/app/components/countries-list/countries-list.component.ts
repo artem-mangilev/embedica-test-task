@@ -32,7 +32,7 @@ export class CountriesListComponent implements OnInit {
     });
   }
 
-  onKey(value: string) {
+  onInputValueChanged(value: string) {
     this.countriesFilter.setCountryNameFilter(value);
 
     this.countriesFilter.getCountries().subscribe((countries) => {

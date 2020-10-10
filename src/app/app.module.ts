@@ -8,6 +8,7 @@ import { CountryDetailsComponent } from './components/country-details/country-de
 import { ListItemComponent } from './components/list-item/list-item.component';
 import { GraphQLModule } from './graphql.module';
 import { HttpClientModule } from '@angular/common/http';
+import { InputComponent } from './components/input/input.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
     CountriesListComponent,
     CountryDetailsComponent,
     ListItemComponent,
+    InputComponent
   ],
   imports: [BrowserModule, AppRoutingModule, GraphQLModule, HttpClientModule],
   providers: [],
