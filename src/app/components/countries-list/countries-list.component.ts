@@ -4,6 +4,7 @@ import {
   CountriesFilterService,
   CountryDetails,
 } from 'src/app/services/countries-filter.service';
+import { Checkbox } from '../dropdown/dropdown.component';
 
 @Component({
   selector: 'app-countries-list',
@@ -11,18 +12,21 @@ import {
   styleUrls: ['./countries-list.component.scss'],
 })
 export class CountriesListComponent implements OnInit {
-  continents;
+  dropdown: Checkbox[];
   currencies;
   filteredItems: Item[];
-  checkboxes = 0;
 
   constructor(private countriesFilter: CountriesFilterService) {}
 
   ngOnInit(): void {
     this.countriesFilter.getCountries().subscribe((countries) => {
-      this.continents = countries
+      this.dropdown = countries
         .map((country) => country.continent)
-        .filter(this.isElementUnique, this);
+        .filter(this.isElementUnique, this)
+        .map((continent) => ({
+          text: continent,
+          checked: false,
+        }));
 
       this.currencies = countries
         .map((country) => country.currency)
@@ -40,11 +44,11 @@ export class CountriesListComponent implements OnInit {
     });
   }
 
-  onCheckboxClicked(checked: boolean, value: string) {
-    if (checked) {
-      this.checkboxes = this.countriesFilter.addContinentFilter(value);
+  onCheckboxUpdated(checkbox: Checkbox) {
+    if (checkbox.checked) {
+      this.countriesFilter.addContinentFilter(checkbox.text);
     } else {
-      this.checkboxes = this.countriesFilter.removeContinentFilter(value);
+      this.countriesFilter.removeContinentFilter(checkbox.text);
     }
 
     this.countriesFilter.getCountries().subscribe((countries) => {

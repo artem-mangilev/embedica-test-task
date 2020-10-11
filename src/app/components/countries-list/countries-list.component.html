@@ -9,29 +9,15 @@
 
   <div class="filters">
     <app-input
-      placeholder="Название"
-      value="test"
+      placeholder="Name"
       (changeValueEvent)="onInputValueChanged($event)"
     ></app-input>
 
-    <div class="checkbox-dropdown">
-      <input readonly [value]="'Выбраны ' + checkboxes" />
-
-      <div class="checkbox-dropdown__dropdown">
-        <label
-          class="checkbox-dropdown__label"
-          *ngFor="let continent of continents"
-        >
-          <input
-            type="checkbox"
-            [value]="continent"
-            #checkbox
-            (change)="onCheckboxClicked(checkbox.checked, checkbox.value)"
-          />
-          {{ continent }}
-        </label>
-      </div>
-    </div>
+    <app-dropdown
+      name="Continents"
+      [checkboxes]="dropdown"
+      (checkboxUpdateEvent)="onCheckboxUpdated($event)"
+    ></app-dropdown>
 
     <div class="radio-filter">
       <h4>Currencies</h4>

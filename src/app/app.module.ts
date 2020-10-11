@@ -9,6 +9,7 @@ import { ListItemComponent } from './components/list-item/list-item.component';
 import { GraphQLModule } from './graphql.module';
 import { HttpClientModule } from '@angular/common/http';
 import { InputComponent } from './components/input/input.component';
+import { DropdownComponent } from './components/dropdown/dropdown.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { InputComponent } from './components/input/input.component';
     CountriesListComponent,
     CountryDetailsComponent,
     ListItemComponent,
-    InputComponent
+    InputComponent,
+    DropdownComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, GraphQLModule, HttpClientModule],
   providers: [],

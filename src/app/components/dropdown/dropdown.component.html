@@ -1,0 +1,30 @@
+<div class="dropdown">
+  <app-input
+    class="dropdown__input"
+    [placeholder]="name"
+    [value]="'Выбраны ' + selected"
+    [readonly]="true"
+    (clickEvent)="toggleDropdown()"
+  ></app-input>
+  <div
+    class="dropdown__checkbox-container"
+    [class.dropdown__checkbox-container_shown]="isDropdownShown"
+  >
+    <div
+      class="dropdown__checkbox"
+      *ngFor="let checkbox of checkboxes; index as i"
+    >
+      <input
+        class="dropdown__checkbox-button"
+        type="checkbox"
+        [id]="i"
+        [checked]="checkbox.checked"
+        #elem
+        (input)="handleCheckboxClick(i, elem.checked)"
+      />
+      <label class="dropdown__label" [for]="i">
+        {{ checkbox.text }}
+      </label>
+    </div>
+  </div>
+</div>
