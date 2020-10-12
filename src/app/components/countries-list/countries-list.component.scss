@@ -2,6 +2,10 @@
   display: grid;
   grid-template-columns: auto 393px;
 
+  &__list {
+    padding: 52px 64px;
+  }
+
   &__title {
     margin-bottom: 64px;
   }
@@ -9,16 +13,31 @@
   &__country {
     margin-bottom: 40px;
   }
-}
 
-.checkbox-dropdown {
-  &__label {
-    display: block;
+  &__radio-group {
+    display: grid;
+    row-gap: 16px;
   }
-}
 
-.radio-filter {
-  &__label {
-    display: block;
+  &__filters {
+    padding: 52px 32px;
+    border-left: 1px solid rgba(165, 165, 165, 1);
+    background: #fff;
+  }
+
+  &__text-input {
+    margin-bottom: 41px;
+  }
+
+  &__filters-title {
+    margin-bottom: 30px;
+  }
+
+  &__filters-subtitle {
+    margin-bottom: 23px;
+  }
+
+  &__dropdown {
+    margin-bottom: 24px;
   }
 }

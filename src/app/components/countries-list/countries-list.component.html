@@ -7,21 +7,24 @@
     </div>
   </div>
 
-  <div class="filters">
+  <div class="countries__filters">
+    <h2 class="countries__filters-title">Фильтры</h2>
+
     <app-input
+      class="countries__text-input"
       placeholder="Name"
       (changeValueEvent)="onInputValueChanged($event)"
     ></app-input>
 
     <app-dropdown
+      class="countries__dropdown"
       name="Continents"
       [checkboxes]="dropdown"
       (checkboxUpdateEvent)="onCheckboxUpdated($event)"
     ></app-dropdown>
 
-    <div class="radio-filter">
-      <h4>Currencies</h4>
-
+    <h4 class="countries__filters-subtitle">Currencies</h4>
+    <div class="countries__radio-group">
       <app-radio
         *ngFor="let currency of currencies"
         name="currency"
