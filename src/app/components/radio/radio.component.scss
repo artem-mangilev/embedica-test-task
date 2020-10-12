@@ -1,0 +1,33 @@
+.radio {
+  display: grid;
+  grid-template-columns: min-content auto;
+  column-gap: 26px;
+  font-size: 20px;
+
+  input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    margin: 0;
+
+    &:checked + .radio__control {
+      border-color: rgba(52, 124, 255, 1);
+      background: radial-gradient(
+        rgba(52, 124, 255, 1) 50%,
+        rgba(255, 0, 0, 0) 51%
+      );
+    }
+  }
+
+  &__input {
+    display: flex;
+  }
+
+  &__control {
+    display: block;
+    width: 1em;
+    height: 1em;
+    border-radius: 50%;
+    border: 2px solid rgba(218, 218, 218, 1);
+  }
+}
