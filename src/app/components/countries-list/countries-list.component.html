@@ -19,22 +19,17 @@
       (checkboxUpdateEvent)="onCheckboxUpdated($event)"
     ></app-dropdown>
 
-    <app-radio [name]="'currency'" [value]="'USD'">Test</app-radio>
-    <app-radio [name]="'currency'" [value]="'RUB'">Test</app-radio>
-
     <div class="radio-filter">
       <h4>Currencies</h4>
 
-      <label class="radio-filter__label" *ngFor="let currency of currencies">
-        <input
-          type="radio"
-          name="currency"
-          [value]="currency"
-          #radio
-          (change)="onRadioSelected(radio.value)"
-        />
+      <app-radio
+        *ngFor="let currency of currencies"
+        name="currency"
+        [value]="currency"
+        (selectEvent)="onRadioSelected($event)"
+      >
         {{ currency }}
-      </label>
+      </app-radio>
     </div>
   </div>
 </div>

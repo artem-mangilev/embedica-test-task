@@ -1,4 +1,4 @@
-import { Component, ContentChildren, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 export interface RadioButton {
   value: string;
@@ -9,7 +9,7 @@ export interface RadioButton {
   selector: 'app-radio',
   template: `
     <label class="radio">
-      <span class="radio__input">
+      <span class="radio__input" (input)="onSelected($event.target.value)">
         <input type="radio" [name]="name" [value]="value" />
         <span class="radio__control"></span>
       </span>
@@ -23,8 +23,13 @@ export interface RadioButton {
 export class RadioComponent implements OnInit {
   @Input() name = '';
   @Input() value = '';
+  @Output() selectEvent = new EventEmitter();
 
   constructor() {}
 
   ngOnInit(): void {}
+
+  onSelected(value: string) {
+    this.selectEvent.emit(value);
+  }
 }
