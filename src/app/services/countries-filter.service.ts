@@ -39,10 +39,13 @@ export class CountriesFilterService {
   getCountries(): Observable<CountryDetails[]> {
     return this.countries.pipe(
       map((countries) =>
-        countries
-          .filter(this.isNameValid, this)
-          .filter(this.isContinentValid, this)
-          .filter(this.isCurrencyValid, this)
+        countries.filter(
+          (country) =>
+            this.isNameValid(country) &&
+            this.isContinentValid(country) &&
+            this.isCurrencyValid(country),
+          this
+        )
       )
     );
   }
