@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Item } from '../list-item/list-item.component';
-import {
-  CountriesFilterService,
-  CountryDetails,
-} from 'src/app/services/countries-filter.service';
+import { CountriesFilterService } from 'src/app/services/countries-filter.service';
+import { CountryDetails } from 'src/app/services/countries-filter.service';
 import { Checkbox } from '../dropdown/dropdown.component';
+import { PaginationParams } from 'src/app/paginate.pipe';
 
 @Component({
   selector: 'app-countries-list',
@@ -15,7 +14,10 @@ export class CountriesListComponent implements OnInit {
   dropdown: Checkbox[];
   currencies;
   filteredItems: Item[] = [];
-  currentPage = 1;
+  paginationParams: PaginationParams = {
+    itemsPerPage: 5,
+    currentPage: 1,
+  };
 
   constructor(private countriesFilter: CountriesFilterService) {}
 
@@ -24,10 +26,7 @@ export class CountriesListComponent implements OnInit {
       this.dropdown = countries
         .map((country) => country.continent)
         .filter(this.isElementUnique, this)
-        .map((continent) => ({
-          text: continent,
-          checked: false,
-        }));
+        .map((continent) => ({ text: continent, checked: false }));
 
       this.currencies = countries
         .map((country) => country.currency)
@@ -59,8 +58,8 @@ export class CountriesListComponent implements OnInit {
     this.applyFilter();
   }
 
-  onPageChanged(newPage: number) {
-    this.currentPage = newPage;
+  onPageChanged(currentPage: number) {
+    this.paginationParams = { ...this.paginationParams, currentPage };
   }
 
   private isElementUnique(
@@ -85,7 +84,7 @@ export class CountriesListComponent implements OnInit {
     this.countriesFilter.getCountries().subscribe((countries) => {
       this.filteredItems = this.countriesToItems(countries);
 
-      this.currentPage = 1;
+      this.paginationParams = { ...this.paginationParams, currentPage: 1 };
     });
   }
 }

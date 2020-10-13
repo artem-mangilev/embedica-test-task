@@ -2,14 +2,12 @@
   <div class="countries__list">
     <h1 class="countries__title">Countries list</h1>
 
-    <div
-      class="countries__country"
-      *ngFor="
-        let item of filteredItems
-          | paginate: { itemsPerPage: 5, currentPage: currentPage }
-      "
-    >
-      <app-list-item [item]="item"></app-list-item>
+    <div class="countries__items">
+      <app-list-item
+        class="countries__item"
+        *ngFor="let item of filteredItems | paginate: paginationParams"
+        [item]="item"
+      ></app-list-item>
     </div>
 
     <app-pagination-controls
@@ -33,16 +31,19 @@
       (checkboxUpdateEvent)="onCheckboxUpdated($event)"
     ></app-dropdown>
 
-    <h4 class="countries__filters-subtitle">Currencies</h4>
-    <div class="countries__radio-group">
-      <app-radio
-        *ngFor="let currency of currencies"
-        name="currency"
-        [value]="currency"
-        (selectEvent)="onRadioSelected($event)"
-      >
-        {{ currency }}
-      </app-radio>
+    <div class="countries__radio-list">
+      <h4 class="countries__radio-title">Currencies</h4>
+
+      <div class="countries__radio-items">
+        <app-radio
+          *ngFor="let currency of currencies"
+          name="currency"
+          [value]="currency"
+          (selectEvent)="onRadioSelected($event)"
+        >
+          {{ currency }}
+        </app-radio>
+      </div>
     </div>
   </div>
 </div>

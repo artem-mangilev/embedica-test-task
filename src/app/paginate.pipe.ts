@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { PaginationService } from './pagination.service';
 
-interface PaginationParams {
+export interface PaginationParams {
   itemsPerPage: number;
   currentPage: number;
 }

@@ -1,26 +1,23 @@
+$top-padding: 52px;
+
 .countries {
   display: grid;
   grid-template-columns: auto 393px;
 
   &__list {
-    padding: 52px 64px;
+    padding: $top-padding 64px;
   }
 
   &__title {
     margin-bottom: 64px;
   }
 
-  &__country {
+  &__item {
     margin-bottom: 40px;
   }
 
-  &__radio-group {
-    display: grid;
-    row-gap: 16px;
-  }
-
   &__filters {
-    padding: 52px 32px;
+    padding: $top-padding 32px;
     border-left: 1px solid rgba(165, 165, 165, 1);
     background: #fff;
   }
@@ -33,11 +30,12 @@
     margin-bottom: 30px;
   }
 
-  &__filters-subtitle {
-    margin-bottom: 23px;
+  &__radio-title {
+    margin: 24px 0;
   }
 
-  &__dropdown {
-    margin-bottom: 24px;
+  &__radio-items {
+    display: grid;
+    row-gap: 16px;
   }
 }
