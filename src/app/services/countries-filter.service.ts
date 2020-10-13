@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map, share } from 'rxjs/operators';
+import { map, share, shareReplay } from 'rxjs/operators';
 import { CountriesListGQL } from './countriesGraphql.service';
 
 export interface CountryDetails {
@@ -19,9 +19,10 @@ export class CountriesFilterService {
 
   private countries: Observable<CountryDetails[]>;
 
+
+
   constructor(countriesListService: CountriesListGQL) {
     this.countries = countriesListService.fetch().pipe(
-      // ? the operations below do the same at each subscribe call, the result should be cached somehow
       map((response) => response.data.countries),
       map((countries) =>
         countries.map((country) => {
@@ -32,7 +33,7 @@ export class CountriesFilterService {
           };
         })
       ),
-      share()
+      shareReplay()
     );
   }
 
