@@ -40,9 +40,7 @@ export class CountriesListComponent implements OnInit {
   onInputValueChanged(value: string) {
     this.countriesFilter.setCountryNameFilter(value);
 
-    this.countriesFilter.getCountries().subscribe((countries) => {
-      this.filteredItems = this.countriesToItems(countries);
-    });
+    this.applyFilter();
   }
 
   onCheckboxUpdated(checkbox: Checkbox) {
@@ -52,17 +50,13 @@ export class CountriesListComponent implements OnInit {
       this.countriesFilter.removeContinentFilter(checkbox.text);
     }
 
-    this.countriesFilter.getCountries().subscribe((countries) => {
-      this.filteredItems = this.countriesToItems(countries);
-    });
+    this.applyFilter();
   }
 
   onRadioSelected(value: string) {
     this.countriesFilter.setCurrenctyFilter(value);
 
-    this.countriesFilter.getCountries().subscribe((countries) => {
-      this.filteredItems = this.countriesToItems(countries);
-    });
+    this.applyFilter();
   }
 
   onPageChanged(newPage: number) {
@@ -85,5 +79,13 @@ export class CountriesListComponent implements OnInit {
         ['Currency', country.currency],
       ]),
     }));
+  }
+
+  private applyFilter() {
+    this.countriesFilter.getCountries().subscribe((countries) => {
+      this.filteredItems = this.countriesToItems(countries);
+
+      this.currentPage = 1
+    });
   }
 }
