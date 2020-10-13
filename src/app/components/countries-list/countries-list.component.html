@@ -2,9 +2,20 @@
   <div class="countries__list">
     <h1 class="countries__title">Countries list</h1>
 
-    <div class="countries__country" *ngFor="let item of filteredItems">
+    <div
+      class="countries__country"
+      *ngFor="
+        let item of filteredItems
+          | paginate: { itemsPerPage: 5, currentPage: currentPage }
+      "
+    >
       <app-list-item [item]="item"></app-list-item>
     </div>
+
+    <app-pagination-controls
+      [currentPage]="currentPage"
+      (changePage)="onPageChanged($event)"
+    ></app-pagination-controls>
   </div>
 
   <div class="countries__filters">

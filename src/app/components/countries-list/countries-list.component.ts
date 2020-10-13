@@ -14,7 +14,8 @@ import { Checkbox } from '../dropdown/dropdown.component';
 export class CountriesListComponent implements OnInit {
   dropdown: Checkbox[];
   currencies;
-  filteredItems: Item[];
+  filteredItems: Item[] = [];
+  currentPage = 1;
 
   constructor(private countriesFilter: CountriesFilterService) {}
 
@@ -62,6 +63,10 @@ export class CountriesListComponent implements OnInit {
     this.countriesFilter.getCountries().subscribe((countries) => {
       this.filteredItems = this.countriesToItems(countries);
     });
+  }
+
+  onPageChanged(newPage: number) {
+    this.currentPage = newPage;
   }
 
   private isElementUnique(

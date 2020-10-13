@@ -11,6 +11,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { InputComponent } from './components/input/input.component';
 import { DropdownComponent } from './components/dropdown/dropdown.component';
 import { RadioComponent } from './components/radio/radio.component';
+import { PaginatePipe } from './paginate.pipe';
+import { PaginationControlsComponent } from './components/pagination-controls/pagination-controls.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +23,8 @@ import { RadioComponent } from './components/radio/radio.component';
     InputComponent,
     DropdownComponent,
     RadioComponent,
+    PaginatePipe,
+    PaginationControlsComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, GraphQLModule, HttpClientModule],
   providers: [],
