@@ -16,11 +16,8 @@ export class PaginatePipe implements PipeTransform {
 
     for (let i = 0; i < items.length; i += params.itemsPerPage) {
       const pageEnd = i + params.itemsPerPage;
-      if (items[pageEnd]) {
-        pages.push(items.slice(i, pageEnd));
-      } else {
-        pages.push(items.slice(i));
-      }
+
+      pages.push(items[pageEnd] ? items.slice(i, pageEnd) : items.slice(i));
     }
 
     const currentPage = params.currentPage - 1;
