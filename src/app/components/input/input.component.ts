@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-input',
@@ -11,7 +11,6 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
         class="field__input"
         #input
         [value]="value"
-        (keyup)="sendValue(input.value)"
         (keyup)="setValue(input.value)"
         (click)="handleClickEvent($event)"
         [placeholder]="placeholder"
@@ -28,12 +27,10 @@ export class InputComponent {
   @Output() changeValueEvent = new EventEmitter();
   @Output() clickEvent = new EventEmitter();
 
-  sendValue(value: string) {
-    this.changeValueEvent.emit(value);
-  }
-
   setValue(value: string) {
     this.value = value;
+
+    this.changeValueEvent.emit(value);
   }
 
   handleClickEvent(event) {
