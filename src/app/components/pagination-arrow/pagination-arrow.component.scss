@@ -1,0 +1,14 @@
+.arrow {
+  &_enabled {
+    fill: rgba(52, 124, 255, 1);
+  }
+
+  &_disabled {
+    fill: rgba(60, 71, 76, 1);
+  }
+
+  &_rotated {
+    transform: rotate(180deg);
+    transform-origin: 50% 50%;
+  }
+}

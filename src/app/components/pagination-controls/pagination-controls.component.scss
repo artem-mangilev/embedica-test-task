@@ -1,3 +1,13 @@
 :host {
   display: block;
 }
+
+.pagination {
+  display: grid;
+  grid-template-columns: max-content 63px max-content;
+  justify-items: center;
+
+  &__current-page {
+    user-select: none;
+  }
+}

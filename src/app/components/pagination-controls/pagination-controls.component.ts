@@ -1,15 +1,20 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { PaginationService } from 'src/app/pagination.service';
 
 @Component({
   selector: 'app-pagination-controls',
   template: `
     <div class="pagination">
-      <a class="pagination__prev" (click)="onPrevClick()"><</a>
-      <span class="pagination__current-page">
-        {{ currentPage }}
-      </span>
-      <a class="pagination__next" (click)="onNextClick()">></a>
+      <a class="pagination__prev" (click)="onPrevClick()">
+        <app-pagination-arrow [enabled]="!isFirstPage()"></app-pagination-arrow>
+      </a>
+      <span class="pagination__current-page">{{ currentPage }}</span>
+      <a class="pagination__next" (click)="onNextClick()">
+        <app-pagination-arrow
+          [enabled]="!isLastPage()"
+          direction="right"
+        ></app-pagination-arrow>
+      </a>
     </div>
   `,
   styleUrls: ['./pagination-controls.component.scss'],
@@ -40,5 +45,13 @@ export class PaginationControlsComponent implements OnInit {
     }
 
     this.changePage.emit(this.currentPage);
+  }
+
+  isFirstPage(): boolean {
+    return this.currentPage === 1;
+  }
+
+  isLastPage(): boolean {
+    return this.currentPage === this.paginationService.getTotalPages();
   }
 }
