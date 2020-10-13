@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { PaginatePipe } from 'src/app/paginate.pipe';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { PaginationService } from 'src/app/pagination.service';
 
 @Component({
   selector: 'app-pagination-controls',
@@ -14,9 +14,17 @@ import { PaginatePipe } from 'src/app/paginate.pipe';
   `,
   styleUrls: ['./pagination-controls.component.scss'],
 })
-export class PaginationControlsComponent {
-  @Input() currentPage: number;
+export class PaginationControlsComponent implements OnInit {
+  currentPage: number;
   @Output() changePage = new EventEmitter();
+
+  constructor(private paginationService: PaginationService) {}
+
+  ngOnInit() {
+    this.paginationService.pageChange.subscribe((page) => {
+      this.currentPage = page;
+    });
+  }
 
   onPrevClick() {
     if (this.currentPage > 1) {
@@ -27,7 +35,9 @@ export class PaginationControlsComponent {
   }
 
   onNextClick() {
-    this.currentPage = this.currentPage + 1;
+    if (this.currentPage < this.paginationService.getTotalPages()) {
+      this.currentPage = this.currentPage + 1;
+    }
 
     this.changePage.emit(this.currentPage);
   }

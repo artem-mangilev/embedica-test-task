@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { PaginationService } from './pagination.service';
 
 interface PaginationParams {
   itemsPerPage: number;
@@ -11,7 +12,11 @@ type Pages = Array<unknown[]>;
   name: 'paginate',
 })
 export class PaginatePipe implements PipeTransform {
+  constructor(private paginationService: PaginationService) {}
+
   transform(items: unknown[], params: PaginationParams): unknown[] {
+    this.paginationService.setCurrentPage(params.currentPage)
+
     const pages: Pages = [];
 
     for (let i = 0; i < items.length; i += params.itemsPerPage) {
@@ -19,6 +24,8 @@ export class PaginatePipe implements PipeTransform {
 
       pages.push(items[pageEnd] ? items.slice(i, pageEnd) : items.slice(i));
     }
+
+    this.paginationService.setTotalPages(pages.length);
 
     const currentPage = params.currentPage - 1;
     return pages[currentPage];

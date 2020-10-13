@@ -85,7 +85,7 @@ export class CountriesListComponent implements OnInit {
     this.countriesFilter.getCountries().subscribe((countries) => {
       this.filteredItems = this.countriesToItems(countries);
 
-      this.currentPage = 1
+      this.currentPage = 1;
     });
   }
 }
