@@ -5,16 +5,18 @@ import { PaginationService } from 'src/app/pagination.service';
   selector: 'app-pagination-controls',
   template: `
     <div class="pagination">
-      <a class="pagination__prev" (click)="onPrevClick()">
-        <app-pagination-arrow [enabled]="!isFirstPage()"></app-pagination-arrow>
-      </a>
+      <app-pagination-arrow
+        class="pagination__prev"
+        (click)="onPrevClick()"
+        [enabled]="!isFirstPage()"
+      ></app-pagination-arrow>
       <span class="pagination__current-page">{{ currentPage }}</span>
-      <a class="pagination__next" (click)="onNextClick()">
-        <app-pagination-arrow
-          [enabled]="!isLastPage()"
-          direction="right"
-        ></app-pagination-arrow>
-      </a>
+      <app-pagination-arrow
+        class="pagination__next"
+        (click)="onNextClick()"
+        [enabled]="!isLastPage()"
+        direction="right"
+      ></app-pagination-arrow>
     </div>
   `,
   styleUrls: ['./pagination-controls.component.scss'],
