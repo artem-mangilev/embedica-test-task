@@ -6,16 +6,18 @@
     [readonly]="true"
     (clickEvent)="toggleDropdown()"
   ></app-input>
+
   <div
-    class="dropdown__checkbox-container"
-    [class.dropdown__checkbox-container_shown]="isDropdownShown"
+    class="dropdown__checkbox-list"
+    [class.dropdown__checkbox-list_shown]="isDropdownShown"
   >
+
     <div
       class="dropdown__checkbox"
       *ngFor="let checkbox of checkboxes; index as i"
     >
       <input
-        class="dropdown__checkbox-button"
+        class="dropdown__control"
         type="checkbox"
         [id]="i"
         [checked]="checkbox.checked"
@@ -26,5 +28,6 @@
         {{ checkbox.text }}
       </label>
     </div>
+    
   </div>
 </div>
