@@ -18,7 +18,7 @@ export class CountriesFilterService {
   private currencyFilter: string = '';
 
   private continents: Map<string, boolean> = new Map();
-  private currencies: Set<string> = new Set()
+  private currencies: Set<string> = new Set();
 
   private countries: Observable<CountryDetails[]>;
 
@@ -30,7 +30,7 @@ export class CountriesFilterService {
           return {
             name: country.name,
             continent: country.continent.name,
-            currency: country.currency,
+            currency: country.currency ? country.currency : 'None',
             code: country.code,
           };
         })
@@ -38,7 +38,7 @@ export class CountriesFilterService {
       tap((countries) => {
         countries.forEach((country) => {
           this.continents.set(country.continent, false);
-          this.currencies.add(country.currency)
+          this.currencies.add(country.currency);
         });
       }),
       shareReplay()
@@ -88,7 +88,7 @@ export class CountriesFilterService {
   }
 
   getCurrencies() {
-    return this.currencies
+    return this.currencies;
   }
 
   private isNameValid(country: CountryDetails): boolean {

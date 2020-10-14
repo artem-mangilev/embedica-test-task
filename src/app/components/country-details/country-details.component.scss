@@ -11,4 +11,20 @@
   &__title {
     margin-bottom: 53px;
   }
+
+  &__go-back-icon {
+    width: 9px;
+    height: 9px;
+    transform: rotate(180deg);
+  }
+
+  &__go-back {
+    margin-bottom: 22px;
+
+    a {
+      vertical-align: middle;
+      text-decoration: none;
+      color: rgba(41, 98, 255, 1);
+    }
+  }
 }

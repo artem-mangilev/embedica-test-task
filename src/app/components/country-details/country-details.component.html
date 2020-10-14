@@ -1,4 +1,14 @@
 <div class="country-details">
+  <div class="country-details__go-back" >
+    <a routerLink="/">
+      <img
+        class="country-details__go-back-icon"
+        src="../../../assets/go-to-details.svg"
+      />
+      Вернуться
+    </a>
+  </div>
+
   <h1 class="country-details__title">{{ name }}</h1>
 
   <app-properties [properties]="getProperties()"></app-properties>
