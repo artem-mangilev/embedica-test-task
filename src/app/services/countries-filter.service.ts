@@ -19,8 +19,6 @@ export class CountriesFilterService {
 
   private countries: Observable<CountryDetails[]>;
 
-
-
   constructor(countriesListService: CountriesListGQL) {
     this.countries = countriesListService.fetch().pipe(
       map((response) => response.data.countries),

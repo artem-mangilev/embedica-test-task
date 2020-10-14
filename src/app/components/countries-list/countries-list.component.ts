@@ -12,7 +12,7 @@ import { PaginationParams } from 'src/app/paginate.pipe';
 })
 export class CountriesListComponent implements OnInit {
   dropdown: Checkbox[];
-  currencies;
+  currencies: string[];
   filteredItems: Item[] = [];
   paginationParams: PaginationParams = {
     itemsPerPage: 5,
@@ -81,6 +81,7 @@ export class CountriesListComponent implements OnInit {
   }
 
   private applyFilter() {
+    // TODO: subscriptions after each DOM event could cause memory leak, so fix this when find a better solution
     this.countriesFilter.getCountries().subscribe((countries) => {
       this.filteredItems = this.countriesToItems(countries);
 
