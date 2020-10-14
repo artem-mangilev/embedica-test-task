@@ -7,7 +7,14 @@
         class="countries__item"
         *ngFor="let country of filteredCountries | paginate: paginationParams"
       >
-        <h3 class="countries__country-name">{{ country.name }}</h3>
+        <!-- ? for some reason angular decides that country has unknown type  -->
+        <h3 class="countries__country-name">
+          {{ country.name }}
+
+          <a [routerLink]="country.code">
+            <img src="../../../assets/go-to-details.svg" />
+          </a>
+        </h3>
 
         <app-properties [properties]="countryToMap(country)"></app-properties>
       </div>

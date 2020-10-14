@@ -4,6 +4,7 @@ import { map, share, shareReplay } from 'rxjs/operators';
 import { CountriesListGQL } from './countriesGraphql.service';
 
 export interface CountryDetails {
+  code: string
   name: string;
   continent: string;
   currency: string;
@@ -28,6 +29,7 @@ export class CountriesFilterService {
             name: country.name,
             continent: country.continent.name,
             currency: country.currency,
+            code: country.code
           };
         })
       ),

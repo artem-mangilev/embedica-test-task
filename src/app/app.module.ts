@@ -26,7 +26,7 @@ import { PaginationArrowComponent } from './components/pagination-arrow/paginati
     RadioComponent,
     PaginatePipe,
     PaginationControlsComponent,
-    PaginationArrowComponent
+    PaginationArrowComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, GraphQLModule, HttpClientModule],
   providers: [],
