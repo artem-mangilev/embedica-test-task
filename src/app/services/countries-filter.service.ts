@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map, share, shareReplay } from 'rxjs/operators';
+import { map, shareReplay, tap } from 'rxjs/operators';
 import { CountriesListGQL } from './countriesGraphql.service';
 
 export interface CountryDetails {
-  code: string
+  code: string;
   name: string;
   continent: string;
   currency: string;
@@ -15,8 +15,10 @@ export interface CountryDetails {
 })
 export class CountriesFilterService {
   private countryNameFilter: string = '';
-  private continentsFilter: string[] = [];
   private currencyFilter: string = '';
+
+  private continents: Map<string, boolean> = new Map();
+  private currencies: Set<string> = new Set()
 
   private countries: Observable<CountryDetails[]>;
 
@@ -29,10 +31,16 @@ export class CountriesFilterService {
             name: country.name,
             continent: country.continent.name,
             currency: country.currency,
-            code: country.code
+            code: country.code,
           };
         })
       ),
+      tap((countries) => {
+        countries.forEach((country) => {
+          this.continents.set(country.continent, false);
+          this.currencies.add(country.currency)
+        });
+      }),
       shareReplay()
     );
   }
@@ -55,19 +63,32 @@ export class CountriesFilterService {
     this.countryNameFilter = nameFilter;
   }
 
-  addContinentFilter(continent: string): number {
-    return this.continentsFilter.push(continent);
+  getCountryNameFilter(): string {
+    return this.countryNameFilter;
+  }
+
+  addContinentFilter(continent: string) {
+    this.continents.set(continent, true);
   }
 
   removeContinentFilter(continent: string) {
-    const index = this.continentsFilter.indexOf(continent);
-    this.continentsFilter.splice(index, 1);
+    this.continents.set(continent, false);
+  }
 
-    return this.continentsFilter.length;
+  getContinentsFilter() {
+    return this.continents;
   }
 
   setCurrenctyFilter(currency: string) {
     this.currencyFilter = currency;
+  }
+
+  getCurrencyFilter() {
+    return this.currencyFilter;
+  }
+
+  getCurrencies() {
+    return this.currencies
   }
 
   private isNameValid(country: CountryDetails): boolean {
@@ -81,11 +102,13 @@ export class CountriesFilterService {
   }
 
   private isContinentValid(country: CountryDetails): boolean {
-    if (!this.continentsFilter.length) {
-      return true;
-    }
+    const filterIsNotApplied = [...this.continents.values()].every(
+      (value) => value === false
+    );
 
-    return this.continentsFilter.includes(country.continent);
+    if (filterIsNotApplied) return true;
+
+    return this.continents.get(country.continent);
   }
 
   private isCurrencyValid(country: CountryDetails): boolean {

@@ -10,7 +10,7 @@ export interface RadioButton {
   template: `
     <label class="radio">
       <span class="radio__input" (input)="onSelected($event.target.value)">
-        <input type="radio" [name]="name" [value]="value" />
+        <input type="radio" [name]="name" [value]="value" [checked]="checked" />
         <span class="radio__control"></span>
       </span>
       <span class="radio__label">
@@ -23,6 +23,7 @@ export interface RadioButton {
 export class RadioComponent implements OnInit {
   @Input() name = '';
   @Input() value = '';
+  @Input() checked = false
   @Output() selectEvent = new EventEmitter();
 
   constructor() {}

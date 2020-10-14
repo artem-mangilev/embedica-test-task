@@ -10,8 +10,10 @@ import { PaginationParams } from 'src/app/paginate.pipe';
   styleUrls: ['./countries-list.component.scss'],
 })
 export class CountriesListComponent implements OnInit {
+  searchPattern: string;
   dropdown: Checkbox[];
   currencies: string[];
+  checkedCurrency: string;
   filteredCountries: CountryDetails[] = [];
   paginationParams: PaginationParams = {
     itemsPerPage: 5,
@@ -22,14 +24,17 @@ export class CountriesListComponent implements OnInit {
 
   ngOnInit(): void {
     this.countriesFilter.getCountries().subscribe((countries) => {
-      this.dropdown = countries
-        .map((country) => country.continent)
-        .filter(this.isElementUnique, this)
-        .map((continent) => ({ text: continent, checked: false }));
+      this.dropdown = [...this.countriesFilter.getContinentsFilter()].map(
+        ([continent, fitered]) => ({
+          text: continent,
+          checked: fitered,
+        })
+      );
 
-      this.currencies = countries
-        .map((country) => country.currency)
-        .filter(this.isElementUnique, this);
+      this.currencies = [...this.countriesFilter.getCurrencies().values()];
+      this.checkedCurrency = this.countriesFilter.getCurrencyFilter();
+
+      this.searchPattern = this.countriesFilter.getCountryNameFilter();
 
       this.filteredCountries = countries;
     });
@@ -66,14 +71,6 @@ export class CountriesListComponent implements OnInit {
       ['Continent', country.continent],
       ['Currency', country.currency],
     ]);
-  }
-
-  private isElementUnique(
-    elememnt: string,
-    index: number,
-    array: string[]
-  ): boolean {
-    return array.indexOf(elememnt) === index;
   }
 
   private applyFilter() {
