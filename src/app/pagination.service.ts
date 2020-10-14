@@ -1,21 +1,28 @@
 import { EventEmitter, Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PaginationService {
-  pageChange = new EventEmitter()
-  private totalPages
+  pageChange = new EventEmitter();
+  private totalPages;
+  private currentPage;
 
   setCurrentPage(page: number) {
-    this.pageChange.emit(page)
+    this.currentPage = page;
+
+    this.pageChange.emit(page);
+  }
+
+  getCurrentPage(): number {
+    return this.currentPage;
   }
 
   setTotalPages(pages: number) {
-    this.totalPages = pages
+    this.totalPages = pages;
   }
 
   getTotalPages(): number {
-    return this.totalPages
+    return this.totalPages;
   }
 }

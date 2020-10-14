@@ -3,6 +3,7 @@ import { CountriesFilterService } from 'src/app/services/countries-filter.servic
 import { CountryDetails } from 'src/app/services/countries-filter.service';
 import { Checkbox } from '../dropdown/dropdown.component';
 import { PaginationParams } from 'src/app/paginate.pipe';
+import { PaginationService } from 'src/app/pagination.service';
 
 @Component({
   selector: 'app-countries-list',
@@ -20,7 +21,10 @@ export class CountriesListComponent implements OnInit {
     currentPage: 1,
   };
 
-  constructor(private countriesFilter: CountriesFilterService) {}
+  constructor(
+    private countriesFilter: CountriesFilterService,
+    private paginationService: PaginationService
+  ) {}
 
   ngOnInit(): void {
     this.countriesFilter.getCountries().subscribe((countries) => {
@@ -30,6 +34,11 @@ export class CountriesListComponent implements OnInit {
           checked: fitered,
         })
       );
+
+      this.paginationParams = {
+        ...this.paginationParams,
+        currentPage: this.paginationService.getCurrentPage(),
+      };
 
       this.currencies = [...this.countriesFilter.getCurrencies().values()];
       this.checkedCurrency = this.countriesFilter.getCurrencyFilter();

@@ -21,13 +21,12 @@ import { PaginationService } from 'src/app/pagination.service';
   `,
   styleUrls: ['./pagination-controls.component.scss'],
 })
-export class PaginationControlsComponent implements OnInit {
+export class PaginationControlsComponent {
   currentPage: number;
+  
   @Output() changePage = new EventEmitter();
 
-  constructor(private paginationService: PaginationService) {}
-
-  ngOnInit() {
+  constructor(private paginationService: PaginationService) {
     this.paginationService.pageChange.subscribe((page) => {
       this.currentPage = page;
     });
