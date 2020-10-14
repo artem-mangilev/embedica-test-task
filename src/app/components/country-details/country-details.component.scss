@@ -1,0 +1,14 @@
+@import "../../../variables.scss";
+
+:host {
+  display: block;
+}
+
+.country-details {
+  margin-top: 48px;
+  margin-left: $margin-left;
+
+  &__title {
+    margin-bottom: 53px;
+  }
+}

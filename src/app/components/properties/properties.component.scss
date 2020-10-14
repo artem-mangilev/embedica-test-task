@@ -5,13 +5,26 @@
 .properties {
   display: grid;
   grid-template-columns: repeat(2, 453px);
-  row-gap: 29px;
-  padding: 29px 0;
+  row-gap: 40px;
+
+  line-height: 32px;
 
   &__property {
-    display: grid;
-    grid-template-columns: repeat(2, max-content);
-    column-gap: 104px;
+    display: flex;
+
+    & > div {
+      flex: 1;
+    }
+
+    &:last-child:nth-child(odd) {
+      grid-column-start: 1;
+      grid-column-end: 3;
+      display: block;
+
+      .properties__key {
+        margin-bottom: 22px;
+      }
+    }
   }
 
   &__value {

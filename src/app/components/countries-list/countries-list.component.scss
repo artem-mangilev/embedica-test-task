@@ -18,6 +18,10 @@ $border: 1px solid rgba(165, 165, 165, 1);
     border-bottom: $border;
   }
 
+  &__country-properties {
+    padding: 29px 0;
+  }
+
   &__filters {
     padding: $top-padding 32px;
     border-left: $border;
