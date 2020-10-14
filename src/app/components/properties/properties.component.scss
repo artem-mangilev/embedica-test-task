@@ -2,15 +2,11 @@
   display: block;
 }
 
-.item {
-  border-bottom: 1px solid rgba(165, 165, 165, 1);
-
-  &__properties {
-    display: grid;
-    grid-template-columns: repeat(2, 453px);
-    row-gap: 29px;
-    padding: 29px 0;
-  }
+.properties {
+  display: grid;
+  grid-template-columns: repeat(2, 453px);
+  row-gap: 29px;
+  padding: 29px 0;
 
   &__property {
     display: grid;

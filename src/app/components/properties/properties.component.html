@@ -1,0 +1,6 @@
+<div class="properties">
+  <div class="properties__property" *ngFor="let prop of properties | keyvalue">
+    <div class="properties__key">{{ prop.key }}</div>
+    <div class="properties__value">{{ prop.value }}</div>
+  </div>
+</div>

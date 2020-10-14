@@ -3,11 +3,14 @@
     <h1 class="countries__title">Countries list</h1>
 
     <div class="countries__items">
-      <app-list-item
+      <div
         class="countries__item"
-        *ngFor="let item of filteredItems | paginate: paginationParams"
-        [item]="item"
-      ></app-list-item>
+        *ngFor="let country of filteredCountries | paginate: paginationParams"
+      >
+        <h3 class="countries__country-name">{{ country.name }}</h3>
+
+        <app-properties [properties]="countryToMap(country)"></app-properties>
+      </div>
     </div>
 
     <app-pagination-controls

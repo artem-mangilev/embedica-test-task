@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Item } from '../list-item/list-item.component';
 import { CountriesFilterService } from 'src/app/services/countries-filter.service';
 import { CountryDetails } from 'src/app/services/countries-filter.service';
 import { Checkbox } from '../dropdown/dropdown.component';
@@ -13,7 +12,7 @@ import { PaginationParams } from 'src/app/paginate.pipe';
 export class CountriesListComponent implements OnInit {
   dropdown: Checkbox[];
   currencies: string[];
-  filteredItems: Item[] = [];
+  filteredCountries: CountryDetails[] = [];
   paginationParams: PaginationParams = {
     itemsPerPage: 5,
     currentPage: 1,
@@ -32,7 +31,7 @@ export class CountriesListComponent implements OnInit {
         .map((country) => country.currency)
         .filter(this.isElementUnique, this);
 
-      this.filteredItems = this.countriesToItems(countries);
+      this.filteredCountries = countries;
     });
   }
 
@@ -62,6 +61,13 @@ export class CountriesListComponent implements OnInit {
     this.paginationParams = { ...this.paginationParams, currentPage };
   }
 
+  countryToMap(country: CountryDetails) {
+    return new Map([
+      ['Continent', country.continent],
+      ['Currency', country.currency],
+    ]);
+  }
+
   private isElementUnique(
     elememnt: string,
     index: number,
@@ -70,20 +76,10 @@ export class CountriesListComponent implements OnInit {
     return array.indexOf(elememnt) === index;
   }
 
-  private countriesToItems(countries: CountryDetails[]) {
-    return countries.map((country) => ({
-      name: country.name,
-      properties: new Map([
-        ['Continent', country.continent],
-        ['Currency', country.currency],
-      ]),
-    }));
-  }
-
   private applyFilter() {
     // TODO: subscriptions after each DOM event could cause memory leak, so fix this when find a better solution
     this.countriesFilter.getCountries().subscribe((countries) => {
-      this.filteredItems = this.countriesToItems(countries);
+      this.filteredCountries = countries;
 
       this.paginationParams = { ...this.paginationParams, currentPage: 1 };
     });

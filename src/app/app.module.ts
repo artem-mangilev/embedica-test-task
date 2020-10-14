@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CountriesListComponent } from './components/countries-list/countries-list.component';
 import { CountryDetailsComponent } from './components/country-details/country-details.component';
-import { ListItemComponent } from './components/list-item/list-item.component';
+import { PropertiesComponent } from './components/properties/properties.component';
 import { GraphQLModule } from './graphql.module';
 import { HttpClientModule } from '@angular/common/http';
 import { InputComponent } from './components/input/input.component';
@@ -20,7 +20,7 @@ import { PaginationArrowComponent } from './components/pagination-arrow/paginati
     AppComponent,
     CountriesListComponent,
     CountryDetailsComponent,
-    ListItemComponent,
+    PropertiesComponent,
     InputComponent,
     DropdownComponent,
     RadioComponent,

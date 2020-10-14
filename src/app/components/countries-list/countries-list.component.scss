@@ -1,4 +1,5 @@
 $top-padding: 52px;
+$border: 1px solid rgba(165, 165, 165, 1);
 
 .countries {
   display: grid;
@@ -14,11 +15,12 @@ $top-padding: 52px;
 
   &__item {
     margin-bottom: 40px;
+    border-bottom: $border;
   }
 
   &__filters {
     padding: $top-padding 32px;
-    border-left: 1px solid rgba(165, 165, 165, 1);
+    border-left: $border;
     background: #fff;
   }
 
