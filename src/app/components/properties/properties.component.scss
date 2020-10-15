@@ -1,4 +1,4 @@
-@import '../../../variables.scss';
+@import "../../../variables.scss";
 
 :host {
   display: block;
@@ -7,11 +7,8 @@
 .properties {
   display: grid;
   grid-template-columns: repeat(2, 452px);
-  // grid-template-columns: 206px 246px;
   row-gap: 32px;
   line-height: 32px;
-
-  // column-gap: 104px;
 
   &__property {
     display: flex;
@@ -23,10 +20,6 @@
     & > .properties__value {
       flex: 2.5;
     }
-
-    // display: grid;
-    // grid-template-columns: repeat(2, max-content);
-    // column-gap: 104px;
 
     &:last-child:nth-child(odd) {
       grid-column-start: 1;
