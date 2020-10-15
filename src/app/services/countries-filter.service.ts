@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map, shareReplay, tap } from 'rxjs/operators';
+import { from, Observable } from 'rxjs';
+import { filter, map, shareReplay, switchMap, tap } from 'rxjs/operators';
 import { CountriesListGQL } from './countriesGraphql.service';
 
 export interface CountryDetails {
@@ -26,14 +26,12 @@ export class CountriesFilterService {
     this.countries = countriesListService.fetch().pipe(
       map((response) => response.data.countries),
       map((countries) =>
-        countries.map((country) => {
-          return {
-            name: country.name,
-            continent: country.continent.name,
-            currency: country.currency ? country.currency : 'None',
-            code: country.code,
-          };
-        })
+        countries.map((country) => ({
+          name: country.name,
+          continent: country.continent.name,
+          currency: country.currency ? country.currency : 'None',
+          code: country.code,
+        }))
       ),
       tap((countries) => {
         countries.forEach((country) => {
