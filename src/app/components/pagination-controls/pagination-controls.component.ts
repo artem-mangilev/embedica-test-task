@@ -1,10 +1,10 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { PaginationService } from 'src/app/pagination.service';
 
 @Component({
   selector: 'app-pagination-controls',
   template: `
-    <div class="pagination">
+    <div class="pagination" *ngIf="!isSinglePage()">
       <app-pagination-arrow
         class="pagination__prev"
         (click)="onPrevClick()"
@@ -23,7 +23,7 @@ import { PaginationService } from 'src/app/pagination.service';
 })
 export class PaginationControlsComponent {
   currentPage: number;
-  
+
   @Output() changePage = new EventEmitter();
 
   constructor(private paginationService: PaginationService) {
@@ -34,7 +34,7 @@ export class PaginationControlsComponent {
 
   onPrevClick() {
     if (this.currentPage > 1) {
-      this.currentPage = this.currentPage - 1;
+      this.currentPage--;
     }
 
     this.changePage.emit(this.currentPage);
@@ -42,7 +42,7 @@ export class PaginationControlsComponent {
 
   onNextClick() {
     if (this.currentPage < this.paginationService.getTotalPages()) {
-      this.currentPage = this.currentPage + 1;
+      this.currentPage++;
     }
 
     this.changePage.emit(this.currentPage);
@@ -54,5 +54,9 @@ export class PaginationControlsComponent {
 
   isLastPage(): boolean {
     return this.currentPage === this.paginationService.getTotalPages();
+  }
+
+  isSinglePage(): boolean {
+    return this.paginationService.getTotalPages() === 1;
   }
 }
