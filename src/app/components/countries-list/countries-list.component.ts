@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CountriesFilterService } from 'src/app/services/countries-filter.service';
 import { CountryDetails } from 'src/app/services/countries-filter.service';
-import { Checkbox } from '../dropdown/dropdown.component';
+import { Checkbox } from '../checkbox/checkbox.component';
 import { PaginationParams } from 'src/app/paginate.pipe';
 import { PaginationService } from 'src/app/pagination.service';
 
@@ -31,6 +31,7 @@ export class CountriesListComponent implements OnInit {
       this.dropdown = [...this.countriesFilter.getContinentsFilter()].map(
         ([continent, fitered]) => ({
           text: continent,
+          value: continent,
           checked: fitered,
         })
       );

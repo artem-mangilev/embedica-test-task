@@ -11,23 +11,12 @@
     class="dropdown__checkbox-list"
     [class.dropdown__checkbox-list_shown]="isDropdownShown"
   >
-
-    <div
-      class="dropdown__checkbox"
-      *ngFor="let checkbox of checkboxes; index as i"
-    >
-      <input
-        class="dropdown__control"
-        type="checkbox"
-        [id]="i"
-        [checked]="checkbox.checked"
-        #elem
-        (input)="handleCheckboxClick(i, elem.checked)"
-      />
-      <label class="dropdown__label" [for]="i">
-        {{ checkbox.text }}
-      </label>
-    </div>
-    
+    <app-checkbox
+      *ngFor="let checkbox of checkboxes"
+      [text]="checkbox.text"
+      [value]="checkbox.value"
+      [checked]="checkbox.checked"
+      (checkEvent)="handleCheckboxClick($event)"
+    ></app-checkbox>
   </div>
 </div>

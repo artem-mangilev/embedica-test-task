@@ -14,6 +14,7 @@ import { RadioComponent } from './components/radio/radio.component';
 import { PaginatePipe } from './paginate.pipe';
 import { PaginationControlsComponent } from './components/pagination-controls/pagination-controls.component';
 import { PaginationArrowComponent } from './components/pagination-arrow/pagination-arrow.component';
+import { CheckboxComponent } from './components/checkbox/checkbox.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { PaginationArrowComponent } from './components/pagination-arrow/paginati
     PaginatePipe,
     PaginationControlsComponent,
     PaginationArrowComponent,
+    CheckboxComponent
   ],
   imports: [BrowserModule, AppRoutingModule, GraphQLModule, HttpClientModule],
   providers: [],

@@ -1,0 +1,41 @@
+:host {
+  display: block;
+}
+
+.checkbox {
+  display: grid;
+  grid-template-columns: min-content auto;
+  column-gap: 13px;
+
+  &__control {
+    appearance: none;
+    margin: 0;
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(218, 218, 218, 1);
+    border-radius: 2px;
+
+    outline: none;
+
+    &:checked {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      background-color: rgba(52, 124, 255, 1);
+      border: none;
+
+      &::before {
+        content: "";
+
+        position: relative;
+        bottom: 2px;
+        width: 12px;
+        height: 8px;
+        border-bottom: 2px solid #fff;
+        border-left: 2px solid #fff;
+        transform: rotate(-45deg);
+      }
+    }
+  }
+}

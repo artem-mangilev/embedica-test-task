@@ -14,46 +14,4 @@
       row-gap: 16px;
     }
   }
-
-  &__checkbox {
-    display: flex;
-    align-items: center;
-  }
-
-  &__control {
-    position: relative;
-    appearance: none;
-    margin: 0;
-    width: 18px;
-    height: 18px;
-    border: 2px solid rgba(218, 218, 218, 1);
-    border-radius: 2px;
-
-    &:checked {
-      background-color: rgba(52, 124, 255, 1);
-      border: none;
-
-      &::before {
-        content: "";
-
-        position: absolute;
-        top: 3px;
-        left: 3px;
-        margin: 0;
-        width: 12px;
-        height: 8px;
-        border-bottom: 2px solid #fff;
-        border-left: 2px solid #fff;
-        transform: rotate(-45deg);
-      }
-    }
-
-    &:focus {
-      outline: none;
-    }
-  }
-
-  &__label {
-    padding-left: 13px;
-  }
 }
