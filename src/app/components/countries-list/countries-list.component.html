@@ -11,7 +11,7 @@
         <h3 class="countries__country-name">
           {{ country.name }}
 
-          <a [routerLink]="country.code">
+          <a class="countries__go-to-details" [routerLink]="country.code">
             <img src="../../../assets/go-to-details.svg" />
           </a>
         </h3>
@@ -24,6 +24,7 @@
     </div>
 
     <app-pagination-controls
+      class="countries__pagination-controls"
       (changePage)="onPageChanged($event)"
     ></app-pagination-controls>
   </div>

@@ -10,16 +10,30 @@ $border: 1px solid rgba(165, 165, 165, 1);
   }
 
   &__title {
-    margin-bottom: 64px;
+    margin-bottom: 65px;
+  }
+
+  &__items {
+    display: grid;
+    row-gap: 43px;
+    margin-bottom: 61px;
   }
 
   &__item {
-    margin-bottom: 40px;
     border-bottom: $border;
   }
 
+  &__go-to-details {
+    margin-left: 23px;
+  }
+
   &__country-properties {
-    padding: 29px 0;
+    padding-top: 24px;
+    padding-bottom: 26px;
+  }
+
+  &__pagination-controls {
+    margin-left: 8px;
   }
 
   &__filters {
@@ -33,15 +47,16 @@ $border: 1px solid rgba(165, 165, 165, 1);
   }
 
   &__filters-title {
-    margin-bottom: 30px;
+    margin-bottom: 34px;
   }
 
   &__radio-title {
-    margin: 24px 0;
+    margin: 25px 0;
   }
 
   &__radio-items {
     display: grid;
     row-gap: 16px;
+    margin-left: 2px;
   }
 }

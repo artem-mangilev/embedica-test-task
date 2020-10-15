@@ -5,26 +5,29 @@
 }
 
 .country-details {
-  margin-top: 48px;
+  margin-top: 47px;
   margin-left: $margin-left;
 
   &__title {
-    margin-bottom: 53px;
+    margin-bottom: 46px;
   }
 
   &__go-back-icon {
     width: 9px;
     height: 9px;
     transform: rotate(180deg);
+    margin-right: 5px;
   }
 
   &__go-back {
-    margin-bottom: 22px;
+    margin-bottom: 23px;
+    margin-left: 2px;
 
     a {
       vertical-align: middle;
       text-decoration: none;
       color: rgba(41, 98, 255, 1);
+      font-size: 14px;
     }
   }
 }

@@ -2,7 +2,9 @@
   display: grid;
   grid-template-columns: min-content auto;
   column-gap: 26px;
-  font-size: 20px;
+  // font-size: 20px;
+
+  line-height: 1.1;
 
   input {
     opacity: 0;
@@ -25,8 +27,10 @@
 
   &__control {
     display: block;
-    width: 1em;
-    height: 1em;
+    // width: 1em;
+    // height: 1em;
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
     border: 2px solid rgba(218, 218, 218, 1);
   }
