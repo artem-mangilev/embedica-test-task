@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CountriesFilterService } from 'src/app/services/countries-filter.service';
 import { CountryDetails } from 'src/app/services/countries-filter.service';
 import { Checkbox } from '../checkbox/checkbox.component';
-import { PaginationParams } from 'src/app/paginate.pipe';
-import { PaginationService } from 'src/app/pagination.service';
+import { PaginationParams } from 'src/app/pipes/paginate.pipe';
+import { PaginationService } from 'src/app/services/pagination.service';
 
 @Component({
   selector: 'app-countries-list',
