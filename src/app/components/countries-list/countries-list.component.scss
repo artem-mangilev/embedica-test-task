@@ -37,6 +37,7 @@ $border: 1px solid rgba(165, 165, 165, 1);
   }
 
   &__filters {
+    min-height: 100vh;
     padding: $top-padding 32px;
     border-left: $border;
     background: #fff;
