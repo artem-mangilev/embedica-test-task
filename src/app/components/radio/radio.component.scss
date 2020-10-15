@@ -1,3 +1,5 @@
+@import "../../../variables.scss";
+
 .radio {
   display: grid;
   grid-template-columns: min-content auto;
@@ -13,11 +15,8 @@
     margin: 0;
 
     &:checked + .radio__control {
-      border-color: rgba(52, 124, 255, 1);
-      background: radial-gradient(
-        rgba(52, 124, 255, 1) 50%,
-        rgba(255, 0, 0, 0) 51%
-      );
+      border-color: $primary-color;
+      background: radial-gradient($primary-color 50%, rgba(255, 0, 0, 0) 51%);
     }
   }
 
