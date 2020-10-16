@@ -20,10 +20,10 @@ export class CountriesFilterService {
   private continents: Map<string, boolean> = new Map();
   private currencies: Set<string> = new Set();
 
-  private countries: Observable<CountryDetails[]>;
+  private countries$: Observable<CountryDetails[]>;
 
   constructor(countriesListService: CountriesListGQL) {
-    this.countries = countriesListService.fetch().pipe(
+    this.countries$ = countriesListService.fetch().pipe(
       map((response) => response.data.countries),
       map((countries) =>
         countries.map(({ name, continent, currency, code }) => ({
@@ -43,17 +43,17 @@ export class CountriesFilterService {
     );
   }
 
-  getCountries(): Observable<CountryDetails[]> {
-    return this.countries.pipe(
-      map((countries) =>
-        countries.filter(
-          (country) =>
-            this.isNameValid(country) &&
-            this.isContinentValid(country) &&
-            this.isCurrencyValid(country),
-          this
-        )
-      )
+  getCountries() {
+    return this.countries$
+  }
+
+  filter(countries: CountryDetails[]) {
+    return countries.filter(
+      (country) =>
+        this.isNameValid(country) &&
+        this.isContinentValid(country) &&
+        this.isCurrencyValid(country),
+      this
     );
   }
 
