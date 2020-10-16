@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CountriesFilterService } from 'src/app/services/countries-filter.service';
 import { CountryDetails } from 'src/app/services/countries-filter.service';
 import { Checkbox } from '../checkbox/checkbox.component';
 import { PaginationParams } from 'src/app/pipes/paginate.pipe';
 import { PaginationService } from 'src/app/services/pagination.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-countries-list',
   templateUrl: './countries-list.component.html',
   styleUrls: ['./countries-list.component.scss'],
 })
-export class CountriesListComponent implements OnInit {
+export class CountriesListComponent implements OnInit, OnDestroy {
   searchPattern: string;
   dropdown: Checkbox[];
   currencies: string[];
@@ -21,6 +22,7 @@ export class CountriesListComponent implements OnInit {
     itemsPerPage: 5,
     currentPage: 1,
   };
+  subscription: Subscription;
 
   constructor(
     private countriesFilter: CountriesFilterService,
@@ -28,28 +30,34 @@ export class CountriesListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.countriesFilter.getCountries().subscribe((countries) => {
-      this.dropdown = [...this.countriesFilter.getContinentsFilter()].map(
-        ([continent, fitered]) => ({
-          text: continent,
-          value: continent,
-          checked: fitered,
-        })
-      );
+    this.subscription = this.countriesFilter
+      .getCountries()
+      .subscribe((countries) => {
+        this.dropdown = [...this.countriesFilter.getContinentsFilter()].map(
+          ([continent, fitered]) => ({
+            text: continent,
+            value: continent,
+            checked: fitered,
+          })
+        );
 
-      this.paginationParams = {
-        ...this.paginationParams,
-        currentPage: this.paginationService.getCurrentPage(),
-      };
+        this.paginationParams = {
+          ...this.paginationParams,
+          currentPage: this.paginationService.getCurrentPage(),
+        };
 
-      this.currencies = [...this.countriesFilter.getCurrencies().values()];
-      this.checkedCurrency = this.countriesFilter.getCurrencyFilter();
+        this.currencies = [...this.countriesFilter.getCurrencies().values()];
+        this.checkedCurrency = this.countriesFilter.getCurrencyFilter();
 
-      this.searchPattern = this.countriesFilter.getCountryNameFilter();
+        this.searchPattern = this.countriesFilter.getCountryNameFilter();
 
-      this.countries = countries;
-      this.filteredCountries = this.countriesFilter.filter(countries);
-    });
+        this.countries = countries;
+        this.filteredCountries = this.countriesFilter.filter(countries);
+      });
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   onInputValueChanged(value: string) {

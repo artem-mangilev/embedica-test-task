@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { CountryDetailsGQL } from 'src/app/services/countriesGraphql.service';
 
@@ -8,7 +9,7 @@ import { CountryDetailsGQL } from 'src/app/services/countriesGraphql.service';
   templateUrl: './country-details.component.html',
   styleUrls: ['./country-details.component.scss'],
 })
-export class CountryDetailsComponent implements OnInit {
+export class CountryDetailsComponent implements OnInit, OnDestroy {
   name: string;
   native: string;
   capital: string;
@@ -18,13 +19,15 @@ export class CountryDetailsComponent implements OnInit {
   languages: string;
   states: string;
 
+  subscription: Subscription;
+
   constructor(
     private route: ActivatedRoute,
     private countryDetails: CountryDetailsGQL
   ) {}
 
   ngOnInit(): void {
-    this.route.paramMap
+    this.subscription = this.route.paramMap
       .pipe(
         map((paramMap) => paramMap.get('id')),
         switchMap((code) => this.countryDetails.fetch({ code })),
@@ -51,6 +54,10 @@ export class CountryDetailsComponent implements OnInit {
         const states = country.states.map((state) => state.name).join(', ');
         this.states = states ? states : 'There are no states';
       });
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   getProperties() {
