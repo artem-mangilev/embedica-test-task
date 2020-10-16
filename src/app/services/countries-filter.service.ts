@@ -62,9 +62,9 @@ export class CountriesFilterService {
       filters.push(this.isContinentValid.bind(this));
     }
 
-    return countries.filter((country) => {
-      return filters.every((filter) => filter(country));
-    });
+    return countries.filter((country) =>
+      filters.every((filter) => filter(country))
+    );
   }
 
   setCountryNameFilter(nameFilter: string) {
@@ -114,7 +114,7 @@ export class CountriesFilterService {
   }
 
   private isContinentFilterApplied(): boolean {
-    return [...this.continents.values()].some((value) => value === true);
+    return [...this.continents.values()].some((value) => value);
   }
 
   private isTextFilterApplied(text: string): boolean {
