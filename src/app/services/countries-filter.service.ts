@@ -26,17 +26,17 @@ export class CountriesFilterService {
     this.countries = countriesListService.fetch().pipe(
       map((response) => response.data.countries),
       map((countries) =>
-        countries.map((country) => ({
-          name: country.name,
-          continent: country.continent.name,
-          currency: country.currency ? country.currency : 'None',
-          code: country.code,
+        countries.map(({ name, continent, currency, code }) => ({
+          name,
+          continent: continent.name,
+          currency: currency ? currency : 'None',
+          code,
         }))
       ),
       tap((countries) => {
-        countries.forEach((country) => {
-          this.continents.set(country.continent, false);
-          this.currencies.add(country.currency);
+        countries.forEach(({ continent, currency }) => {
+          this.continents.set(continent, false);
+          this.currencies.add(currency);
         });
       }),
       shareReplay()
