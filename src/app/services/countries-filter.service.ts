@@ -44,17 +44,27 @@ export class CountriesFilterService {
   }
 
   getCountries() {
-    return this.countries$
+    return this.countries$;
   }
 
   filter(countries: CountryDetails[]) {
-    return countries.filter(
-      (country) =>
-        this.isNameValid(country) &&
-        this.isContinentValid(country) &&
-        this.isCurrencyValid(country),
-      this
-    );
+    const filters = [];
+
+    if (this.isTextFilterApplied(this.countryNameFilter)) {
+      filters.push(this.isNameValid.bind(this));
+    }
+
+    if (this.isTextFilterApplied(this.currencyFilter)) {
+      filters.push(this.isCurrencyValid.bind(this));
+    }
+
+    if (this.isContinentFilterApplied()) {
+      filters.push(this.isContinentValid.bind(this));
+    }
+
+    return countries.filter((country) => {
+      return filters.every((filter) => filter(country));
+    });
   }
 
   setCountryNameFilter(nameFilter: string) {
@@ -90,30 +100,24 @@ export class CountriesFilterService {
   }
 
   private isNameValid(country: CountryDetails): boolean {
-    if (!this.countryNameFilter.trim().length) {
-      return true;
-    }
-
     return country.name
       .toLowerCase()
       .includes(this.countryNameFilter.toLowerCase());
   }
 
   private isContinentValid(country: CountryDetails): boolean {
-    const filterIsNotApplied = [...this.continents.values()].every(
-      (value) => value === false
-    );
-
-    if (filterIsNotApplied) return true;
-
     return this.continents.get(country.continent);
   }
 
   private isCurrencyValid(country: CountryDetails): boolean {
-    if (!this.currencyFilter.length) {
-      return true;
-    }
-
     return country.currency === this.currencyFilter;
+  }
+
+  private isContinentFilterApplied(): boolean {
+    return [...this.continents.values()].some((value) => value === true);
+  }
+
+  private isTextFilterApplied(text: string): boolean {
+    return !!text.trim().length;
   }
 }
