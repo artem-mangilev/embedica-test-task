@@ -5,6 +5,7 @@ import { Checkbox } from '../checkbox/checkbox.component';
 import { PaginationParams } from 'src/app/pipes/paginate.pipe';
 import { PaginationService } from 'src/app/services/pagination.service';
 import { Subscription } from 'rxjs';
+import { CountriesListService } from 'src/app/services/countries-list.service';
 
 @Component({
   selector: 'app-countries-list',
@@ -25,34 +26,37 @@ export class CountriesListComponent implements OnInit, OnDestroy {
   subscription: Subscription;
 
   constructor(
-    private countriesFilter: CountriesFilterService,
+    private countriesFilterService: CountriesFilterService,
+    private countriesListService: CountriesListService,
     private paginationService: PaginationService
   ) {}
 
   ngOnInit(): void {
-    this.subscription = this.countriesFilter
+    this.subscription = this.countriesListService
       .getCountries()
       .subscribe((countries) => {
-        this.dropdown = [...this.countriesFilter.getContinentsFilter()].map(
-          ([continent, fitered]) => ({
-            text: continent,
-            value: continent,
-            checked: fitered,
-          })
-        );
+        this.dropdown = [
+          ...this.countriesFilterService.getContinentsFilter(),
+        ].map(([continent, fitered]) => ({
+          text: continent,
+          value: continent,
+          checked: fitered,
+        }));
 
         this.paginationParams = {
           ...this.paginationParams,
           currentPage: this.paginationService.getCurrentPage(),
         };
 
-        this.currencies = [...this.countriesFilter.getCurrencies().values()];
-        this.checkedCurrency = this.countriesFilter.getCurrencyFilter();
+        this.currencies = [
+          ...this.countriesFilterService.getCurrencies().values(),
+        ];
+        this.checkedCurrency = this.countriesFilterService.getCurrencyFilter();
 
-        this.searchPattern = this.countriesFilter.getCountryNameFilter();
+        this.searchPattern = this.countriesFilterService.getCountryNameFilter();
 
         this.countries = countries;
-        this.filteredCountries = this.countriesFilter.filter(countries);
+        this.filteredCountries = this.countriesFilterService.filter(countries);
       });
   }
 
@@ -61,23 +65,23 @@ export class CountriesListComponent implements OnInit, OnDestroy {
   }
 
   onInputValueChanged(value: string) {
-    this.countriesFilter.setCountryNameFilter(value);
+    this.countriesFilterService.setCountryNameFilter(value);
 
     this.applyFilter();
   }
 
   onCheckboxUpdated(checkbox: Checkbox) {
     if (checkbox.checked) {
-      this.countriesFilter.addContinentFilter(checkbox.text);
+      this.countriesFilterService.addContinentFilter(checkbox.text);
     } else {
-      this.countriesFilter.removeContinentFilter(checkbox.text);
+      this.countriesFilterService.removeContinentFilter(checkbox.text);
     }
 
     this.applyFilter();
   }
 
   onRadioSelected(value: string) {
-    this.countriesFilter.setCurrenctyFilter(value);
+    this.countriesFilterService.setCurrenctyFilter(value);
 
     this.applyFilter();
   }
@@ -94,7 +98,7 @@ export class CountriesListComponent implements OnInit, OnDestroy {
   }
 
   private applyFilter() {
-    this.filteredCountries = this.countriesFilter.filter(this.countries);
+    this.filteredCountries = this.countriesFilterService.filter(this.countries);
 
     this.paginationParams = { ...this.paginationParams, currentPage: 1 };
   }

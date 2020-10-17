@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map, shareReplay, tap } from 'rxjs/operators';
-import { CountriesListGQL } from './countriesGraphql.service';
+import { CountriesListService } from './countries-list.service';
 
 export interface CountryDetails {
   code: string;
@@ -20,31 +18,13 @@ export class CountriesFilterService {
   private continents: Map<string, boolean> = new Map();
   private currencies: Set<string> = new Set();
 
-  private countries$: Observable<CountryDetails[]>;
-
-  constructor(countriesListService: CountriesListGQL) {
-    this.countries$ = countriesListService.fetch().pipe(
-      map((response) => response.data.countries),
-      map((countries) =>
-        countries.map(({ name, continent, currency, code }) => ({
-          name,
-          continent: continent.name,
-          currency: currency ? currency : 'None',
-          code,
-        }))
-      ),
-      tap((countries) => {
-        countries.forEach(({ continent, currency }) => {
-          this.continents.set(continent, false);
-          this.currencies.add(currency);
-        });
-      }),
-      shareReplay()
-    );
-  }
-
-  getCountries() {
-    return this.countries$;
+  constructor(countriesListService: CountriesListService) {
+    countriesListService.getCountries().subscribe((countries) => {
+      countries.forEach(({ continent, currency }) => {
+        this.continents.set(continent, false);
+        this.currencies.add(currency);
+      });
+    });
   }
 
   filter(countries: CountryDetails[]) {
