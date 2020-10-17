@@ -14,6 +14,7 @@ type Pages = Array<unknown[]>;
 export class PaginatePipe implements PipeTransform {
   constructor(private paginationService: PaginationService) {}
 
+  // TODO: create better typing
   transform(items: unknown[], params: PaginationParams): unknown[] {
     this.paginationService.setCurrentPage(params.currentPage);
 

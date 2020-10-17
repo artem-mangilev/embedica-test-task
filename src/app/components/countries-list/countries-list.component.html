@@ -7,7 +7,6 @@
         class="countries__item"
         *ngFor="let country of filteredCountries | paginate: paginationParams"
       >
-        <!-- ? for some reason angular decides that country has unknown type  -->
         <h3 class="countries__country-name">
           {{ country.name }}
 
