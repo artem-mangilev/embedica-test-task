@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { from } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import { CountriesListService } from './countries-list.service';
 
 export interface CountryDetails {
@@ -19,12 +21,13 @@ export class CountriesFilterService {
   private currencies: Set<string> = new Set();
 
   constructor(countriesListService: CountriesListService) {
-    countriesListService.getCountries().subscribe((countries) => {
-      countries.forEach(({ continent, currency }) => {
+    countriesListService
+      .getCountries()
+      .pipe(switchMap((countries) => from(countries)))
+      .subscribe(({ continent, currency }) => {
         this.continents.set(continent, false);
         this.currencies.add(currency);
       });
-    });
   }
 
   filter(countries: CountryDetails[]) {
