@@ -25,6 +25,10 @@ export class CountriesListComponent implements OnInit, OnDestroy {
   };
   subscription: Subscription;
 
+  // TODO: find a better way to import assets (that will work locally and when deployed)
+  // this approach ignores assets folder and creates dulicated images in dist/embedika-test-task
+  icon = require('../../../assets/icons/go-to-details.svg').default;
+
   constructor(
     private countriesFilterService: CountriesFilterService,
     private countriesListService: CountriesListService,

@@ -21,6 +21,8 @@ export class CountryDetailsComponent implements OnInit, OnDestroy {
 
   subscription: Subscription;
 
+  icon = require('../../../assets/icons/go-to-details.svg').default;
+
   constructor(
     private route: ActivatedRoute,
     private countryDetails: CountryDetailsGQL
