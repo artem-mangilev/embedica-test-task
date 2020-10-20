@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "embedica-test-task": {
+    "embedika-test-task": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -18,7 +18,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/embedica-test-task",
+            "outputPath": "dist/embedika-test-task",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -62,18 +62,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "embedica-test-task:build"
+            "browserTarget": "embedika-test-task:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "embedica-test-task:build:production"
+              "browserTarget": "embedika-test-task:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "embedica-test-task:build"
+            "browserTarget": "embedika-test-task:build"
           }
         },
         "test": {
@@ -103,16 +103,16 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "embedica-test-task:serve"
+            "devServerTarget": "embedika-test-task:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "embedica-test-task:serve:production"
+              "devServerTarget": "embedika-test-task:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "embedica-test-task"
+  "defaultProject": "embedika-test-task"
 }
